@@ -1,11 +1,9 @@
 package hk.ust.comp3021.gui.component.maplist;
 
-import hk.ust.comp3021.gui.scene.start.StartController;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -12,6 +12,8 @@ public class MapEvent extends Event {
      */
     public static final EventType<MapEvent> OPEN_MAP_EVENT_TYPE = new EventType<>("OPEN_MAP");
 
+
+
     private final MapModel model;
 
     /**

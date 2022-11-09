@@ -1,5 +1,6 @@
 package hk.ust.comp3021.gui.component.board;
 
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,6 +21,8 @@ public class CellController implements Initializable {
 
     @FXML
     private Label mark;
+
+    //public Position pos;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,4 +52,9 @@ public class CellController implements Initializable {
         }
         image.setImage(i);
     }
+
+
+//    public void initialPos(int x,int y) {
+//        pos = new Position(x,y);
+//    }
 }

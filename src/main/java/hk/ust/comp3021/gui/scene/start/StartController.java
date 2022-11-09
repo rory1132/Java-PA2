@@ -112,13 +112,21 @@ public class StartController implements Initializable {
         fileChooser.setTitle("Select File");
 
         // set initial File
-        fileChooser.setInitialDirectory(new File("D:\\mingc\\code\\java\\pa2copy\\COMP3021-F22-PA-Student-Version-PA2\\src\\main\\resources\\"));
+        fileChooser.setInitialDirectory(new File(
+                "D:\\mingc\\code\\java\\pa2copy\\COMP3021-F22-PA-Student-Version-PA2\\src\\main\\resources\\"));
         File file = fileChooser.showOpenDialog(null);
 //        if (file == null) throw new RuntimeException("No file given");
 //        else if (!file.getPath().substring(file.getPath().length()-4).equals(".map")) {
 //            throw("Invalid file");
 //        }
         MapModel m;
+        if (file ==null) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Input not valid");
+            errorAlert.setContentText("No file given");
+            errorAlert.showAndWait();
+            return;
+        }
         try {
 
             m = MapModel.load(file.toURI().toURL());
@@ -130,8 +138,8 @@ public class StartController implements Initializable {
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("Invalid file");
             errorAlert.showAndWait();
-            throw new IllegalArgumentException("Invalid file");
-
+            //throw new IllegalArgumentException("Invalid file");
+            return;
         }
 
 
@@ -161,6 +169,7 @@ public class StartController implements Initializable {
         items.remove(m);
         items.sort(Comparator.comparing(MapModel::loadAt));
         mapList.setItems(items);
+        mapList.getSelectionModel().select(null);
     }
 
     /**

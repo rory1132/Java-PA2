@@ -6,6 +6,7 @@ import hk.ust.comp3021.gui.scene.game.ExitEvent;
 import hk.ust.comp3021.gui.scene.game.GameScene;
 import hk.ust.comp3021.gui.scene.start.StartScene;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.io.IOException;
  */
 public class App extends Application {
     private Stage primaryStage;
+    private Scene startScene;
 
 
     /**
@@ -45,6 +47,7 @@ public class App extends Application {
 //                }
 //        );
         //scene.getController().getOpenButton().setOnAction(e -> onOpenMap(scene.getController().getOpen()));
+        this.startScene=scene;
         this.primaryStage.show();
     }
 
@@ -65,6 +68,8 @@ public class App extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        scene.getController().getGamePane().addEventHandler(ExitEvent.EVENT_TYPE, this::onExitGame
+        );
         this.primaryStage.setScene(scene);
 
     }
@@ -77,6 +82,8 @@ public class App extends Application {
      */
     public void onExitGame(ExitEvent event) {
         // TODO
+        this.primaryStage.setScene(startScene);
+
     }
 
 }

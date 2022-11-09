@@ -3,10 +3,13 @@ package hk.ust.comp3021.gui.scene.game;
 import hk.ust.comp3021.game.GameState;
 import hk.ust.comp3021.gui.component.board.GameBoard;
 import hk.ust.comp3021.gui.component.control.ControlPanel;
+import hk.ust.comp3021.gui.component.maplist.MapEvent;
 import hk.ust.comp3021.gui.utils.Resource;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -25,6 +28,7 @@ public class GameSceneController implements Initializable {
 
     @FXML
     private GridPane gamePane;
+
 
     private GUISokobanGame game;
 
@@ -65,5 +69,16 @@ public class GameSceneController implements Initializable {
     @FXML
     public void onExit(ActionEvent event) {
         // TODO
+        Event e = new ExitEvent();
+        Event.fireEvent(gamePane,e);
+
+    }
+
+    /**
+     *
+     * @return exitButton
+     */
+    public GridPane getGamePane() {
+        return gamePane;
     }
 }
