@@ -41,8 +41,6 @@ public class MapListItemController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
-//        int i=StartController.count;
-//        int j = StartController.mnum;
 
 
         mapModelProperty.addListener((ChangeListener) (o, oldVal, newVal) -> {

@@ -1,6 +1,8 @@
 package hk.ust.comp3021.gui;
 
+import hk.ust.comp3021.entities.Player;
 import hk.ust.comp3021.game.GameState;
+import hk.ust.comp3021.game.Position;
 import hk.ust.comp3021.gui.component.maplist.MapEvent;
 import hk.ust.comp3021.gui.scene.game.ExitEvent;
 import hk.ust.comp3021.gui.scene.game.GameScene;
@@ -10,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The JavaFX application that launches the game.
@@ -17,6 +20,10 @@ import java.io.IOException;
 public class App extends Application {
     private Stage primaryStage;
     private Scene startScene;
+    /**No. of player in the map*/
+    public static int playercount=0;
+    /**playerIds*/
+    public static int[] ids= {0,0,0,0};
 
 
     /**
@@ -60,6 +67,16 @@ public class App extends Application {
     public void onOpenMap(MapEvent event) {
         // TODO
         var state = new GameState(event.getModel().gameMap());
+        playercount=0;
+        for (int i = 0; i < state.getMapMaxHeight(); i++) {
+            for (int j = 0; j < state.getMapMaxWidth(); j++) {
+                if (state.getEntity(new Position(j, i)) instanceof Player) {
+                    ids[playercount] = ((Player) Objects.requireNonNull(state.getEntity(new Position(j, i)))).getId();
+                    playercount++;
+                }
+            }
+        }
+
 
         GameScene scene;
         try {
@@ -68,7 +85,7 @@ public class App extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        scene.getController().getGamePane().addEventHandler(ExitEvent.EVENT_TYPE, this::onExitGame
+        scene.getController().getExitButton().addEventHandler(ExitEvent.EVENT_TYPE, this::onExitGame
         );
         this.primaryStage.setScene(scene);
 

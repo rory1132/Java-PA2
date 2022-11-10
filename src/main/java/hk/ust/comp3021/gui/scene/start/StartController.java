@@ -115,10 +115,6 @@ public class StartController implements Initializable {
         fileChooser.setInitialDirectory(new File(
                 "D:\\mingc\\code\\java\\pa2copy\\COMP3021-F22-PA-Student-Version-PA2\\src\\main\\resources\\"));
         File file = fileChooser.showOpenDialog(null);
-//        if (file == null) throw new RuntimeException("No file given");
-//        else if (!file.getPath().substring(file.getPath().length()-4).equals(".map")) {
-//            throw("Invalid file");
-//        }
         MapModel m;
         if (file ==null) {
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -152,8 +148,7 @@ public class StartController implements Initializable {
         items.add(m);
         items.sort(Comparator.comparing(MapModel::loadAt));
         mapList.setItems(items);
-
-
+        mapList.getSelectionModel().select(null);
     }
 
     /**

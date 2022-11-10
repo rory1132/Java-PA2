@@ -35,6 +35,7 @@ public class CellController implements Initializable {
      */
     public void markAtDestination() {
         // TODO
+        mark.setText("\u2713");
     }
 
     /**
@@ -53,8 +54,4 @@ public class CellController implements Initializable {
         image.setImage(i);
     }
 
-
-//    public void initialPos(int x,int y) {
-//        pos = new Position(x,y);
-//    }
 }

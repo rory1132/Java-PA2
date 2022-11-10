@@ -7,6 +7,7 @@ import hk.ust.comp3021.entities.Wall;
 import hk.ust.comp3021.game.GameState;
 import hk.ust.comp3021.game.Position;
 import hk.ust.comp3021.game.RenderingEngine;
+import hk.ust.comp3021.gui.App;
 import hk.ust.comp3021.gui.utils.Message;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -32,9 +33,10 @@ public class GameBoardController implements RenderingEngine, Initializable {
     @FXML
     private Label undoQuota;
 
-    public static int playercount=0;
+//    public static int playercount=0;
 
     public int[] ids= {0,0,0,0};
+    private boolean first = true;
 
 
 
@@ -51,15 +53,11 @@ public class GameBoardController implements RenderingEngine, Initializable {
     @Override
     public void render(@NotNull GameState state) {
         // TODO
+        ids= App.ids;
+
         Platform.runLater(() -> {
-            for (int i = 0; i < state.getMapMaxHeight(); i++) {
-                for (int j = 0; j < state.getMapMaxWidth(); j++) {
-                    if (state.getEntity(new Position(j, i)) instanceof Player) {
-                        ids[playercount] = ((Player) state.getEntity(new Position(j,i))).getId();
-                        playercount++;
-                    }
-                }
-            }
+
+            if (!first) map.getChildren().clear();
             for (int i = 0; i < state.getMapMaxHeight(); i++) {
                 for (int j = 0; j < state.getMapMaxWidth(); j++) {
                     Entity en = state.getEntity(new Position(j, i));
@@ -114,6 +112,7 @@ public class GameBoardController implements RenderingEngine, Initializable {
                                     cell.getController().setImage(Objects.requireNonNull(getClass().getClassLoader().getResource(
                                             "components/img/box-3.png")));
                                 }
+                                if (state.getDestinations().contains(new Position(j, i))) cell.getController().markAtDestination();
                                 map.add(cell, j, i);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
@@ -140,9 +139,14 @@ public class GameBoardController implements RenderingEngine, Initializable {
 
                 }
             }
-            if (state.getUndoQuota().isPresent()) undoQuota.setText("Undo Quota: "+ state.getUndoQuota().get());
-            map.add(undoQuota,0,state.getMapMaxHeight()+1,state.getMapMaxWidth(),1);
+            if (state.getUndoQuota().isPresent())
+                undoQuota.setText("Undo Quota: "+ state.getUndoQuota().get());
+            else
+                undoQuota.setText("Undo Quota: unlimited");
+
+            map.add(undoQuota,0,state.getMapMaxHeight()+1,5,1);
         });
+        first=false;
     }
 
 

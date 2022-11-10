@@ -21,7 +21,8 @@
             GridPane.columnIndex="0"
             GridPane.rowIndex="0"
     />
-    <Button prefWidth="80"
+    <Button fx:id="exitButton"
+            prefWidth="80"
             GridPane.rowIndex="1"
             GridPane.columnIndex="0"
             onAction="#onExit"
